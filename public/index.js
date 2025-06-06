@@ -1,8 +1,7 @@
 var user=JSON.parse(localStorage.getItem('user'))
 document.getElementById('username').innerHTML = user.adi + ' ' + user.soyadi
 document.getElementById('yatirim').innerHTML = (user.soyadi).toUpperCase() + ' YATIRIM'
-document.getElementById('imageId').src = 'assets/images/faces/' + user.kullanici_id + '.jpg'
-document.getElementById('imageId2').src = 'assets/images/faces/' + user.kullanici_id + '.jpg'
+
 console.log(user['adi'])
 
 fetch('http://localhost:3000/api/en_fazla_kar_eden_sirket')

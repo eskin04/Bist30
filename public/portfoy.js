@@ -13,7 +13,7 @@ fetch('http://localhost:3000/api/portfoy/?id=' + user.kullanici_id)
     if(bakiye.includes(','))
     bakiye = bakiye.split(',')[0]
     portfoy.forEach(element => {
-        let hisse_sembol = element.hisse_sembol.toLowerCase()
+        let hisse_sembol = element.hisse_sembol
         let hisse_fiyat = element.hisse_fiyat.toLocaleString('tr-TR', { maximumFractionDigits: 2, style: 'currency', currency: 'TRY' })
         let carpim = element.hisse_fiyat * element.hisse_adet
         carpim = carpim.toLocaleString('tr-TR', { maximumFractionDigits: 0, style: 'currency', currency: 'TRY' })
@@ -23,7 +23,7 @@ fetch('http://localhost:3000/api/portfoy/?id=' + user.kullanici_id)
         <div class="preview-item border-bottom">
                             <div class="preview-thumbnail">
                               <div class="preview-icon bg-primary">
-                                <img src="https://fintables.com/_next/image?url=https%3A%2F%2Ffintables-prod.storage.googleapis.com%2Fmedia%2Fuploads%2Fcompany-logos%2F${hisse_sembol}_icon.png&w=48&q=75" alt="">
+                                <img src="https://storage.fintables.com/media/uploads/company-logos/${hisse_sembol}.png" alt="">
                               </div>
                             </div>
                             <div class="preview-item-content d-sm-flex flex-grow">

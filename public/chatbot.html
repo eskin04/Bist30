@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatbot</title>
+  <link rel="stylesheet" href="chatbot.css" />
+</head>
+<body style="margin: 0;">
+  <div id="chatbot">
+    <div class="chatbot-header">
+      <span>Asistan</span>
+      <span class="chatbot-close">✖</span>
+    </div>
+
+    <div class="chatbot-body" id="chat-log">
+      <div class="message bot">Merhaba! Hisse bilgisiyle ilgili size nasıl yardımcı olabilirim?</div>
+    </div>
+
+    <div class="chatbot-input">
+      <input type="text" id="user-input" placeholder="Bir şey yazın..." />
+    </div>
+  </div>
+
+  <script>
+    // Kapat butonu
+    document.querySelector(".chatbot-close").addEventListener("click", () => {
+      window.parent.postMessage("close-chatbot", "*");
+    });
+
+    const input = document.getElementById("user-input");
+    const chatLog = document.getElementById("chat-log");
+
+    input.addEventListener("keydown", async (e) => {
+      if (e.key === "Enter" && input.value.trim()) {
+        const userMsg = input.value.trim();
+
+        // Kullanıcı mesajı
+        const userDiv = document.createElement("div");
+        userDiv.className = "message user";
+        userDiv.textContent = userMsg;
+        chatLog.appendChild(userDiv);
+        input.value = "";
+
+        // Bekleme mesajı
+        const botDiv = document.createElement("div");
+        botDiv.className = "message bot loading";
+        botDiv.textContent = "Yanıtlanıyor...";
+        chatLog.appendChild(botDiv);
+
+        try {
+          const response = await fetch("http://localhost:3000/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userMsg }),
+          });
+
+          const data = await response.json();
+          botDiv.textContent = data.reply;
+          botDiv.classList.remove("loading");
+
+        } catch (error) {
+          botDiv.textContent = "Hata oluştu, lütfen tekrar deneyin.";
+        }
+
+        chatLog.scrollTop = chatLog.scrollHeight;
+      }
+    });
+  </script>
+</body>
+</html>
