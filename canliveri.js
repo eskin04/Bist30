@@ -38,26 +38,39 @@ const url ={
 
 //5 sanıyede bir veri çekiyor
 
-function hissefiyat(key,URL) {
+function hissefiyat(key, URL) {
     axios.get(URL)
         .then(response => {
             const $ = cheerio.load(response.data);
-            const tableRows = $('h1 span');
-            var hissefiyat = tableRows.eq(0).text();
-            var hissefiyat = hissefiyat.replace(',', '.');
-            var hissefiyat = parseFloat(hissefiyat);
-            var hissefiyat = hissefiyat.toFixed(2);
-            
-            
-            dbConn.query('update hisseler set hisse_fiyat=? where hisse_sembol=?', [hissefiyat, key], (err, result) => {
-                if (err) throw err;
-            })
-            
+            const fiyatText = $('span.lastPrice').first().text().trim();
+
+            const formatted = fiyatText.replace(',', '.');
+            const fiyat = parseFloat(formatted);
+
+            if (isNaN(fiyat)) {
+                console.log(`[HATA] ${key} fiyat alınamadı: '${fiyatText}'`);
+                return;
+            }
+
+            const yuvarlanmisFiyat = fiyat.toFixed(2);
+
+            dbConn.query(
+                'UPDATE hisseler SET hisse_fiyat=? WHERE hisse_sembol=?',
+                [yuvarlanmisFiyat, key],
+                (err, result) => {
+                    if (err) {
+                        console.error(`[MYSQL] ${key} güncellenemedi`, err);
+                    } else {
+                        console.log(`[OK] ${key} = ${yuvarlanmisFiyat}`);
+                    }
+                }
+            );
         })
         .catch(error => {
-            console.log(error);
+            console.error(`[HTTP] ${key} veri alınamadı`, error.message);
         });
 }
+
 
 function hissefiyatlar()
 {
