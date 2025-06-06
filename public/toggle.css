@@ -28,10 +28,10 @@
 /* Chatbot iframe */
 #chatbot-frame {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 340px;
-  height: 440px;
+  bottom: 70px;
+  right: 70px;
+  width: 320px;
+  height: 420px;
   border: none;
   border-radius: 12px;
   z-index: 9999;

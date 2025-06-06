@@ -4,8 +4,6 @@
 
 #chatbot {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
   width: 320px;
   height: 420px;
   background-color: #1e1e2f;

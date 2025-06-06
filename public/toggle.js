@@ -3,7 +3,11 @@ const iframe = document.getElementById("chatbot-frame");
 
 // İKON tıklanınca sadece iframe göster
 toggleButton.addEventListener("click", () => {
-  iframe.style.display = "block";
+  if (iframe.style.display === "none" || iframe.style.display === "") {
+    iframe.style.display = "block";
+  } else {
+    iframe.style.display = "none";
+  }
   // toggleButton.style.display = "none"; ← BUNU ARTIK SİLİYORUZ
 });
 
