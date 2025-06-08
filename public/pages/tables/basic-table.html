@@ -9,6 +9,9 @@
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" href="../../toggle.css">
+    
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -66,6 +69,14 @@
                 <i class="mdi mdi-table-large"></i>
               </span>
               <span class="menu-title">Hisse Analizi</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="../../aianaliz.html">
+              <span class="menu-icon">
+                <i class="mdi mdi-chart-bar"></i>
+              </span>
+              <span class="menu-title">AI Teknik Analiz</span>
             </a>
           </li>
           <li class="nav-item menu-items">
@@ -220,8 +231,8 @@
                         <thead>
                           <tr>
                             <th>Özet Gelir Tablosu</th>
-                            <th>2023/9</th>
-                            <th>2023/3</th>
+                            <th>2024/9</th>
+                            <th>2025/3</th>
                             <th>%</th>
                           </tr>
                         </thead>
@@ -304,6 +315,19 @@
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+    <div id="chatbot-toggle">
+  <i class="fas fa-comments"></i>
+</div>
+
+
+  <!-- Chatbot iframe (başta gizli) -->
+  <iframe 
+    id="chatbot-frame"
+    src="../../chatbot.html"
+  ></iframe>
+
+    <script src="../../toggle.js"></script>
+
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>

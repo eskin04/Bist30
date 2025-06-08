@@ -9,33 +9,44 @@ const chatWithData = async (req, res) => {
     const symbolMatch = userMessage.match(/\b[A-Z]{3,5}\b/);
     const symbol = symbolMatch ? symbolMatch[0] : null;
 
-    let analizData = null;
+    // Tek sembol varsa filtrele, yoksa hepsini al
+let analizData = [];
 
-    if (symbol) {
-      // hisse verisi çek (temel_analiz_verileri)
-      const [rows] = await new Promise((resolve, reject) => {
-        dbConn.query('CALL temel_analiz_verileri(?)', [symbol], (err, result) => {
-          if (err) reject(err);
-          else resolve(result);
-        });
-      });
 
-      analizData = rows[0]; // tek satır
-    }
+  const [rows] = await new Promise((resolve, reject) => {
+    dbConn.query('CALL get_all_temel_analiz()', (err, result) => {
+      if (err) reject(err);
+      else resolve(result);
+    });
+  });
+  analizData = rows;
+
+
+
+    
 
     // ChatGPT API çağrısı
     const prompt = `
-Kullanıcıdan gelen mesaj: "${userMessage}"
+    Kullanıcıdan gelen mesaj: "${userMessage}"
 
-${analizData ? `Aşağıda ${symbol} için bazı finansal veriler yer alıyor:\n${JSON.stringify(analizData)}` : ''}
+    ${analizData && analizData.length > 0 ? `Aşağıda BIST30 hisselerine ait temel finansal veriler yer alıyor:
 
-Bu verilere dayalı şekilde profesyonel ama anlaşılır bir cevap ver:
-`;
+    ${analizData.map(hisse => 
+    `📌 ${hisse.hisse_ad} (${hisse.hisse_sembol})
+    Kar: ${hisse.kar_son_ceyrek}, Favök: ${hisse.favok_son_ceyrek}, Net Borç: ${hisse.net_borc_son_ceyrek}, Özkaynak: ${hisse.ozkaynaklar_son_ceyrek}, Satış: ${hisse.satislar_son_ceyrek}
+    `).join('\n')}` : 'Finansal veri bulunamadı.'}
+
+    Yukarıdaki verilere göre kullanıcıya detaylı, profesyonel bir analiz sun.
+    Teknik terimler kullan (kar, favök, satış, net borç, özkaynak gibi).
+    Hiçbir zaman "üzgünüm", "veri yetersiz" deme.
+    Soruda belirttiği kıyaslamayı veriye göre net cevapla.
+    `;
+
 
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
-        model: "gpt-4", // veya "gpt-3.5-turbo"
+        model: "gpt-3.5-turbo", // veya "gpt-3.5-turbo"
         messages: [{ role: "user", content: prompt }],
       },
       {

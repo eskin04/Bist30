@@ -60,9 +60,7 @@ function hissefiyat(key, URL) {
                 (err, result) => {
                     if (err) {
                         console.error(`[MYSQL] ${key} güncellenemedi`, err);
-                    } else {
-                        console.log(`[OK] ${key} = ${yuvarlanmisFiyat}`);
-                    }
+                    } 
                 }
             );
         })

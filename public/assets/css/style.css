@@ -21246,3 +21246,124 @@ div.tagsinput {
   left: 45%;
   z-index: 11;
 }
+
+/* Grafik alanı */
+#stockChart,
+#chart {
+  width: 100%;
+  height: 400px;
+  max-height: 400px;
+}
+
+/* Yükleme bildirimi */
+#loading {
+  margin-top: 20px;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+#loading .spinner-border {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Buton: aktif ve pasif durumlar */
+button#tahmin-btn {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button#tahmin-btn:hover:enabled {
+  background-color: #0d6efd;
+  transform: scale(1.02);
+}
+
+button#tahmin-btn:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+}
+
+/* Giriş alanı */
+#stockInput {
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s ease;
+}
+
+#stockInput:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Kart */
+.card {
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+#veri-box {
+  background-color: #2A3038; /* koyu arka plan */
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: #f1f1f1;
+  margin-top: 20px;
+}
+
+#veri-box h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  border-bottom: 1px solid #2c2c2c;
+  padding-bottom: 8px;
+}
+
+#veri-box .veri-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #2c2c2c;
+  font-size: 0.95rem;
+}
+
+#veri-box .veri-row:last-child {
+  border-bottom: none;
+}
+
+#veri-box .veri-label {
+  font-weight: 600;
+  color: #cccccc;
+}
+
+#veri-box .veri-value {
+  color: #ffffff;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  border-bottom: 1px solid #2c2c2c;
+  padding-bottom: 6px;
+  margin-top: 2rem;
+}
+
+canvas {
+  background-color: #1f1f1f;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.veri-box {
+  background-color: #121212;
+  padding: 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
